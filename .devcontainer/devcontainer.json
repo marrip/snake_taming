@@ -1,0 +1,52 @@
+{
+	"name": "snake_taming",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"USERNAME": "${localEnv:USER}",
+			"USER_UID": "${localEnv:UID}",
+			"USER_GID": "${localEnv:UID}",
+			"MAIL": "${localEnv:MAIL}",
+			"FULLNAME": "${localEnv:FULLNAME}"
+		}
+	},
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined"
+	],
+	"containerEnv": {
+		"SSH_AUTH_SOCK": "${localEnv:SSH_AUTH_SOCK}",
+		"TZ": "Europe/Berlin",
+		"LC_ALL": "en_US.UTF-8",
+		"LANG": "en_US.UTF-8",
+		"LANGUAGE": "en_US.UTF-8",
+		"HTTP_PROXY": "${localEnv:HTTP_PROXY}",
+		"HTTPS_PROXY": "${localEnv:HTTP_PROXY}",
+		"http_proxy": "${localEnv:HTTP_PROXY}",
+		"https_proxy": "${localEnv:HTTP_PROXY}"
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"files.trimTrailingWhitespace": true,
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": "always"
+				}
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"exiasr.hadolint",
+				"gitlab.gitlab-workflow",
+				"kahole.magit",
+				"ms-vsliveshare.vsliveshare"
+			]
+		}
+	},
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "${localEnv:USER}"
+}
